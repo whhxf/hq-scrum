@@ -1,0 +1,21 @@
+# Sprint 进度追踪
+# 状态值: ready-for-dev | in-progress | done
+#
+# 用法:
+# - Claude Code 自动维护此文件
+# - 每个 Story 完成后更新状态
+# - Phase 5 Show & Tell 通过后标记 done
+
+sprint-0:
+  0.1-prototype: done
+  # Sprint 0 特殊阶段，原型验证完成后标记 done
+
+sprint-1:
+  # 在此添加 Sprint 1 的 Story
+  # 1.1-video-player: ready-for-dev
+
+sprint-2:
+  # 在此添加 Sprint 2 的 Story
+
+sprint-3:
+  # 在此添加 Sprint 3 的 Story

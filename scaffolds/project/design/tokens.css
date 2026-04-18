@@ -1,0 +1,77 @@
+/**
+ * Design Tokens
+ *
+ * 单一来源。所有颜色、字号、间距只在这里定义。
+ * 代码通过 CSS 变量引用，不硬编码任何值。
+ *
+ * 修改这里的同时，必须同步更新依赖此 token 的组件。
+ */
+
+@theme {
+  /* === 色彩系统 === */
+
+  /* 品牌色 */
+  --color-brand: ;           /* 主色 */
+  --color-brand-hover: ;     /* hover 态 */
+  --color-brand-muted: ;     /* 浅色强调背景 */
+
+  /* 背景 */
+  --color-bg: ;
+  --color-surface: ;
+  --color-surface-raised: ;
+  --color-surface-hover: ;
+  --color-surface-active: ;
+
+  /* 边框 */
+  --color-border: ;
+  --color-border-hover: ;
+
+  /* 文字 */
+  --color-text: ;
+  --color-text-secondary: ;
+  --color-text-muted: ;
+
+  /* 状态色 */
+  --color-error: ;
+  --color-error-bg: ;
+  --color-success: ;
+  --color-success-bg: ;
+  --color-warning: ;
+  --color-warning-bg: ;
+
+  /* === 排版 === */
+
+  /* 字号 scale（可调整，但必须用 scale，不能随意定义 */
+  --text-xs: ;
+  --text-sm: ;
+  --text-base: ;
+  --text-lg: ;
+  --text-xl: ;
+
+  /* 字重 */
+  --font-weight-normal: ;
+  --font-weight-medium: ;
+  --font-weight-semibold: ;
+  --font-weight-bold: ;
+
+  /* 字体栈 */
+  --font-sans: ;
+  --font-mono: ;
+
+  /* === 间距 === */
+
+  /* 间距 scale */
+  --space-1: ;  /* 4px 基准 */
+  --space-2: ;  /* 8px */
+  --space-3: ;  /* 12px */
+  --space-4: ;  /* 16px */
+  --space-6: ;  /* 24px */
+  --space-8: ;  /* 32px */
+
+  /* === 圆角 === */
+
+  --radius-sm: ;
+  --radius-md: ;
+  --radius-lg: ;
+  --radius-xl: ;
+}
