@@ -16,7 +16,7 @@
 
 ```
 Phase 0: 需求   → PRD.md
-Phase 1: 验证   → Sprint 0 原型（纸面/线框，验证核心路径）
+Phase 1: 验证   → Sprint 0 原型（Pencil 真实 UI 截图，验证核心路径和视觉体验）
 Phase 2: 架构   → ARCHITECTURE.md
 Phase 3: 规划   → specs/sprint-N/*.md（Story 含 Design Spec）
   ↓ Planning Audit Gate（人审合同边界）
@@ -53,13 +53,13 @@ Phase 5: 验证   → Show & Tell（真实用户验证核心任务）
 ## Phase 1: 验证（Sprint 0 原型）
 
 **触发**：PRD 已确认
-**目标**：在写代码前验证核心交互路径可行
-**产出**：`specs/sprint-0/0.1-prototype.md`
+**目标**：在写代码前验证核心交互路径和视觉体验
+**产出**：`specs/sprint-0/0.1-prototype.md` + `specs/sprint-0/prototype.pen`
 
 ### 步骤
 
-1. 基于 PRD 的核心路径，用 ASCII 原型或文字描述布局
-2. 逐条核心路径做纸面走查：
+1. 基于 PRD 的核心路径，使用 Pencil MCP 生成每个关键页面的 .pen 原型（使用默认设计规范）
+2. 通过 `get_screenshot` 渲染截面图，在浏览器/查看器中真实走查核心路径：
    - 用户要完成什么？
    - 第一步点哪里？
    - 系统怎么反馈？
@@ -69,10 +69,15 @@ Phase 5: 验证   → Show & Tell（真实用户验证核心任务）
 
 ### 验证
 
-- 至少一条核心路径在纸面上能完整走通
-- 发现至少一个之前没想到的交互问题
+- 至少一条核心路径在真实 UI 截图上能完整走通
+- 发现至少一个之前没想到的交互或视觉体验问题
+- 原型已在 Pencil 中渲染可见，不是文字想象
 
-**为什么需要 Sprint 0**：SubtitleScribe 项目的教训——写完 120 个测试后发现 UI 不可用。Sprint 0 的成本是 30 分钟，挽回的是几天的返工。
+**为什么需要 Sprint 0**：SubtitleScribe 项目的教训——写完 120 个测试后发现 UI 不可用。ASCII 原型发现不了间距、排版、色彩对比度等视觉问题，Pencil 生成的真实截面图成本极低（几分钟对话式出图），但能暴露 ASCII 发现不了的问题。
+
+### Pencil MCP 操作规范
+
+> 完整操作手册见 `docs/pencil-playbook.md`，所有操作已逐项测试验证。
 
 ---
 
