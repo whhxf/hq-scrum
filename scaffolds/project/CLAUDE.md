@@ -145,23 +145,24 @@ descendants: {"iconNodeId": {iconFontName: "search"}}
 
 ---
 
-## 设计技能增强（Phase 4/5）
+## 设计技能增强（Impeccable，推荐）
 
-项目初始化时安装 Impeccable Design Skill，在 Phase 4/5 阶段用于自动设计评审和视觉抛光：
+项目初始化时安装 Impeccable Design Skill：
 
 ```bash
 npx skills add pbakaus/impeccable
 ```
 
-安装后运行 `/impeccable teach` 建立项目设计上下文（品牌、受众、视觉参考），生成 `.impeccable.md`。
+安装后在各阶段按需使用：
 
 | 阶段 | 命令 | 作用 |
 |------|------|------|
+| Phase 1 起点 | `/impeccable teach` | 建立项目设计上下文（品牌、受众、视觉参考），生成 `.impeccable.md` |
+| Phase 1 原型前 | `/shape [功能描述]` | 结构化 UX 访谈，产出 Design Brief，指导原型方向 |
+| Phase 1 原型后 | `/critique [页面描述]` | UX 评审：AI Slop 检测、Nielsen 启发式评分、认知负荷检查 |
 | Phase 4 实现后 | `/polish [页面描述]` | 对齐、间距、排版、色彩综合优化 |
 | Phase 4 实现后 | `/typeset [页面描述]` | 字体层级、字重、字距、可读性 |
 | Phase 4 实现后 | `/colorize [页面描述]` | 为灰度过度的界面增加战略色彩 |
-| Phase 5 验证前 | `/critique [页面描述]` | UX 评审：层级、信息架构、认知负荷 |
-| Phase 5 验证前 | `/audit [页面描述]` | 技术评审：无障碍、性能、响应式 |
 
 Impeccable 是针对性修改，不是重写。每次只调一个维度，审 diff 后再决定下一步。
 
