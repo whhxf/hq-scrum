@@ -275,3 +275,20 @@ shadcn/ui 主题令牌（带 `1:` 前缀）：
 4. **flexbox 下 x/y 无效** → 布局引擎会忽略，靠 gap/padding 控制间距
 5. **fontFamily 'system-ui' 单独使用报错** → 用 `"Inter"` 或完整栈 `"Inter, system-ui, sans-serif"`
 6. **R (Replace) 会丢失子节点** → 替换后需重新插入子内容
+
+---
+
+## 与 Impeccable 的分工
+
+Pencil 和 Impeccable 在 hq-scrum SOP 中扮演不同阶段的角色：
+
+| 阶段 | 工具 | 输入 | 输出 |
+|------|------|------|------|
+| Phase 1 Sprint 0 原型 | Pencil MCP | PRD 文字/ASCII + design-constraints.md | `.pen` 文件 + 真实 UI 截图 |
+| Phase 4 实现后抛光 | Impeccable | 已有 HTML/组件代码 + `.impeccable.md` | 代码 diff（针对性修改） |
+| Phase 5 验证评审 | Impeccable | 已有页面 | `/critique` 评分报告 + `/audit` 技术检查 |
+
+**Pencil** 是"从无到有"——把 PRD 需求翻译为视觉原型，约束规则确保美感底线。
+**Impeccable** 是"从有到精"——对已实现的代码做精细化设计调整，18 个命令精确控制每个维度。
+
+两者配合：Pencil 定方向（原型验证），Impeccable 做收尾（代码抛光）。

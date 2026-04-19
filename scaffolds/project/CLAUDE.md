@@ -15,3 +15,13 @@ type: feedback
 - 每个 Story 完成标准：逻辑测试 + 人眼视觉确认
 - Sprint 结束必须 Show & Tell，不是自嗨演示
 - 回退是流程的一部分，发现方向错直接回退，不讨论沉没成本
+
+**设计技能增强（推荐）：**
+
+项目初始化时安装 Impeccable Design Skill，在 Phase 4/5 阶段用于自动设计评审和视觉抛光：
+
+```bash
+npx skills add pbakaus/impeccable
+```
+
+安装后运行 `/impeccable teach` 建立项目设计上下文（品牌、受众、视觉参考），生成 `.impeccable.md`。后续在实现阶段使用 `/polish`、`/typeset`、`/colorize` 等命令精细化设计，在验证阶段使用 `/critique`、`/audit` 做自动化评审。
