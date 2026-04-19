@@ -6,7 +6,10 @@ type: feedback
 
 **初始化**：当用户说「hq-scrum 在 XXX 路径」或「初始化 hq-scrum」：
 1. 从该路径复制 `scaffolds/project/` 中所有文件到当前项目根目录
-2. 从 Phase 0 开始
+2. 同时复制 `docs/pencil-playbook.md` 和 `docs/design-constraints.md` 到当前项目的 `docs/` 目录下
+3. 从 Phase 0 开始
+
+**知识来源**：本文件（CLAUDE.md）内联了设计约束和 Pencil 操作速查表，是日常工作的主要参考。`docs/pencil-playbook.md` 和 `docs/design-constraints.md` 是完整参考文档，需要深入查某个细节时翻阅。
 
 **hq-scrum SOP 规则 — 不可跳过：**
 
