@@ -351,6 +351,91 @@ U("KSJ9L", {theme: {"1:Accent": "Violet", "1:Base": "Neutral", "1:Mode": "Light"
 
 ---
 
+## 图标系统
+
+Pencil 的 `icon_font` 类型支持 6 种图标字体库，全部内建，无需外部引入。
+
+### 支持的图标库
+
+| 图标库 | `iconFontFamily` 值 | 图标数量 | 风格 | 推荐场景 |
+|--------|-------------------|---------|------|---------|
+| **Lucide** | `lucide` | 1700+ | 2px 描边、圆角统一 | **首选**，shadcn 默认配套 |
+| Feather | `feather` | 300+ | 简洁线条 | 极简风格界面 |
+| Material Symbols Outlined | `Material Symbols Outlined` | 2500+ | Google 标准 | 需要 Material 风格时 |
+| Material Symbols Rounded | `Material Symbols Rounded` | 2500+ | Google 圆角 | 同上，更柔和 |
+| Material Symbols Sharp | `Material Symbols Sharp` | 2500+ | Google 直角 | 同上，更锐利 |
+| Phosphor | `phosphor` | 1200+ | 多字重可选 | 需要多种粗细变化时 |
+
+**首选 Lucide**：1700+ 图标覆盖 36 个分类，与 shadcn/ui 组件风格一致，是产品界面最安全的选择。完整图标列表见 [lucide.dev/icons](https://lucide.dev/icons)。
+
+### 常用分类
+
+| 分类 | 典型图标 |
+|------|---------|
+| 导航 | `chevron-left`, `chevron-right`, `chevron-down`, `arrow-left`, `arrow-right` |
+| 操作 | `plus`, `minus`, `search`, `filter`, `sort-asc`, `edit`, `trash-2`, `copy` |
+| 状态 | `check`, `x`, `alert-circle`, `alert-triangle`, `info`, `loader-2` |
+| 文件 | `file`, `folder`, `upload`, `download`, `paperclip`, `link` |
+| 用户 | `user`, `users`, `user-plus`, `mail`, `phone` |
+| 设置 | `settings`, `sliders-horizontal`, `bell`, `moon`, `sun` |
+| 多媒体 | `play`, `pause`, `volume-2`, `mic`, `image`, `video` |
+
+### 使用语法
+
+```javascript
+// 独立图标节点
+icon=I(parent, {
+  type: "icon_font",
+  iconFontFamily: "lucide",
+  iconFontName: "settings",
+  width: 24,
+  height: 24,
+  fill: "#1a1a1a"
+})
+
+// 图标 + 文字组合（按钮内）
+btn=I(parent, {type: "frame", layout: "horizontal", justifyContent: "center", alignItems: "center", gap: 8, ...})
+btnIcon=I(btn, {type: "icon_font", iconFontFamily: "lucide", iconFontName: "plus", width: 16, height: 16, fill: "#FFFFFF", x: 0, y: 0})
+btnText=I(btn, {type: "text", content: "添加", fontFamily: "Inter", fontSize: 14, fontWeight: "600", fill: "#FFFFFF", x: 0, y: 0})
+
+// 图标按钮（shadcn 组件）
+iconBtn=I(parent, {type: "ref", ref: "1:urnwK"})
+// 替换图标（用 descendants）
+iconBtn=I(parent, {type: "ref", ref: "1:urnwK", descendants: {"iconNodeId": {iconFontName: "settings"}}})
+
+// Sidebar 导航项中的图标
+item=I(sidebar, {type: "ref", ref: "1:jBcUh", descendants: {"iconId": {iconFontName: "dashboard"}, "labelId": {content: "Dashboard"}}})
+```
+
+### 图标尺寸约定
+
+| 用途 | 尺寸 |
+|------|------|
+| 按钮内小图标 | 16px |
+| 列表项/导航项图标 | 20px |
+| 独立操作图标 | 24px |
+| 空状态/大图标 | 48px |
+
+### 图标颜色
+
+| 场景 | `fill` 值 |
+|------|----------|
+| 主文字旁 | `#1a1a1a` |
+| 次要文字旁 | `#666666` |
+| 主按钮内 | `#FFFFFF` |
+| 品牌色按钮内 | `#FFFFFF` |
+| 危险操作 | `#ef4444` |
+| 导航项选中 | 品牌色（如 `#5c00cb`） |
+
+### 已知坑
+
+1. **图标必须有 width/height** → 不设尺寸 = 不显示或默认 24px
+2. **图标用 fill 控制颜色** → 不是 `color` 或 `stroke`
+3. **图标名用 kebab-case** → `trash-2` 不是 `trash2`，`chevron-down` 不是 `chevronDown`
+4. **组件 descendants 替换图标时只需 `iconFontName`** → 不需要重新声明 `type` 和 `iconFontFamily`
+
+---
+
 ## 常用 shadcn 组件 ID
 
 | 组件 | ID | 说明 |
@@ -580,6 +665,8 @@ card=I(grid, {type: "ref", ref: "1:pcGlv", width: "fill_container"})
 | 页面内容区 | — | 32 |
 
 #### 图标使用
+
+Lucide 为首选（与 shadcn 风格一致）。完整图标库、尺寸约定、颜色规范见上方"图标系统"章节。
 
 ```javascript
 // Lucide 图标（推荐）
