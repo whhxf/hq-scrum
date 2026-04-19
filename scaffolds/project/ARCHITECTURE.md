@@ -23,11 +23,11 @@ project/
 ├── CLAUDE.md              ← 项目约定
 ├── PRD.md                 ← 需求
 ├── ARCHITECTURE.md        ← 本文件
-├── specs/                 ← Sprint Story 文件
+├── specs/                 ← Sprint Story 文件（.pen 原型也在此目录，与 Story 同名）
 │   └── sprint-N/
 ├── design/                ← 设计资产
 │   ├── tokens.css         ← 设计 Token（单一来源）
-│   └── components/        ← 可复用组件规范
+│   └── components/        ← 可复用组件规范（含 .lib.pen 设计库）
 ├── src/                   ← 代码
 │   ├── components/
 │   ├── hooks/
