@@ -4,6 +4,10 @@ description: hq-scrum SOP 流程规则。使用此 SOP 的项目必须遵守。
 type: feedback
 ---
 
+**初始化**：当用户说「hq-scrum 在 XXX 路径」或「初始化 hq-scrum」：
+1. 从该路径复制 `scaffolds/project/` 中所有文件到当前项目根目录
+2. 从 Phase 0 开始
+
 **hq-scrum SOP 规则 — 不可跳过：**
 
 - Phase 0（PRD）→ Phase 1（Sprint 0 Pencil 原型）→ Phase 2（架构）→ Phase 3（Specs）→ Phase 4（实现）→ Phase 5（Show & Tell）
