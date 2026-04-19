@@ -105,6 +105,10 @@ type: feedback
 
 ## Pencil 原型速查（Phase 1 Sprint 0）
 
+### 先保存再操作
+
+`/new` 创建的临时文档每次重新序列化时会重新分配节点 ID，导致之前记录的 ID 全部失效。**必须先 Cmd+S 保存为 `.pen` 文件，再开始 `batch_design`**。
+
 ### 核心操作
 
 | 操作 | 语法 | 注意 |
