@@ -16,6 +16,26 @@ type: feedback
 
 ---
 
+## 工具前置条件
+
+进入 Phase 1 之前必须确认以下工具可用：
+
+### Pencil MCP
+
+- **Pencil 桌面应用**（[pencil.dev](https://pencil.dev)）必须正在运行
+- Claude Code 必须通过 MCP 连接到 Pencil（MCP Server 配置在 settings.json 中）
+- 验证方法：在 Claude Code 中调用 Pencil MCP 工具，如 `get_editor_state`，不报错即为连通
+- **如果 Pencil 不可用**：用纸面回答 6 个 UX 发现问题（见 WORKFLOW.md Phase 1 步骤 1），然后继续 Phase 2。但 Sprint 0 必须在 Phase 4 实现前用 Pencil 补上
+
+### Impeccable Design Skill（推荐，非必须）
+
+- 安装时机：Phase 0（PRD）确认之后、Phase 1 开始之前
+- 安装方式：`npx skills add pbakaus/impeccable`
+- 安装后运行 `/impeccable teach` 建立项目设计上下文
+- **如果不想装**：SOP 所有步骤均可执行，Impeccable 命令为可选增强
+
+---
+
 ## 设计约束（Phase 1 起生效）
 
 以下约束从 Sprint 0 原型开始适用，所有 Pencil 设计和实现阶段代码必须遵守。
