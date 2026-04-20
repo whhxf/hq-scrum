@@ -5,11 +5,8 @@ type: feedback
 ---
 
 **初始化**：当用户说「hq-scrum 在 XXX 路径」或「初始化 hq-scrum」：
-1. 从该路径复制 `scaffolds/project/` 中所有文件到当前项目根目录
-2. 同时复制 `extensions/shadcn.lib.pen` 到当前项目的 `design/shadcn.lib.pen`
-3. 同时复制 `docs/pencil-playbook.md` 和 `docs/design-constraints.md` 到当前项目的 `docs/` 目录下
-4. 同时复制 `skills/impeccable/` 到当前项目的 `.agents/skills/impeccable/`
-5. 从 Phase 0 开始
+1. 复制该路径下 `scaffolds/project/` 全部内容到当前项目根目录（`cp -r`）
+2. 复制完成后，从 Phase 0 开始
 
 **知识来源**：本文件（CLAUDE.md）内联了设计约束和 Pencil 操作速查表，是日常工作的主要参考。`docs/pencil-playbook.md` 和 `docs/design-constraints.md` 是完整参考文档，需要深入查某个细节时翻阅。
 

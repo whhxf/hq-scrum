@@ -16,13 +16,33 @@
 
 ## 快速开始
 
-1. 把 `scaffolds/project/` 复制到新项目根目录
-2. 在 Claude Code 中打开新项目
-3. 对 Claude Code 说：「按 hq-scrum 流程，从 Sprint 0 开始」
-4. Claude Code 读取 `CLAUDE.md` 中的规则，按流程推进：
-   - 执行 `/shape` UX 访谈（Impeccable skill 已内置）
-   - 使用 `design/shadcn.lib.pen` 中的 shadcn/ui 组件生成 Pencil 原型（不从零画）
-   - 原型完成后跑 `/critique` UX 评审，再进入架构阶段
+### 新项目初始化
+
+1. **复制 scaffold**：
+   ```bash
+   cp -r /path/to/hq-scrum/scaffolds/project/* /path/to/your/project/
+   ```
+   复制后新项目根目录包含：
+   - `CLAUDE.md` — SOP 规则（LLM 入口，自动加载）
+   - `PRD.md` — 需求模板
+   - `ARCHITECTURE.md` — 架构模板
+   - `design/shadcn.lib.pen` — shadcn/ui 组件库
+   - `design/tokens.css` — 设计 Token
+   - `docs/` — Pencil 操作手册 + 设计约束
+   - `specs/` — Sprint 原型目录
+   - `.agents/skills/impeccable/` — Impeccable 设计 skill
+
+2. **在 Claude Code 中打开新项目**
+
+3. **告诉 Claude Code**：「按 hq-scrum 流程，从 Sprint 0 开始」
+
+4. **Claude Code 自动执行**：
+   - Phase 0：填充 PRD.md
+   - Phase 1：`/shape` UX 访谈 → Pencil 原型（用 shadcn 组件）→ `/critique` UX 评审
+   - Phase 2：填写 ARCHITECTURE.md
+   - Phase 3：编写 Story Specs
+   - Phase 4：编码实现
+   - Phase 5：Show & Tell 验证
 
 ## 目录结构
 
@@ -31,10 +51,24 @@ hq-scrum/
 ├── README.md                    ← 本文件
 ├── WORKFLOW.md                  ← 6 个 Phase 的详细步骤、产出、验证标准
 ├── templates/                   ← Story、sprint-status、UX Spec 模板
-├── scaffolds/
-│   ├── project/                 ← 复制到新项目的骨架
-│   └── skills/                  ← 项目级 skill（impeccable，单一文件夹）
-└── extensions/                  ← 未来扩展口（shadcn、Playwright 等）
+└── scaffolds/
+    └── project/                 ← 复制到新项目的完整骨架
+        ├── CLAUDE.md            ← SOP 规则（LLM 入口）
+        ├── PRD.md               ← 需求模板
+        ├── ARCHITECTURE.md      ← 架构模板
+        ├── design/              ← 设计资产
+        │   ├── shadcn.lib.pen   ← shadcn/ui 组件库
+        │   ├── tokens.css       ← 设计 Token
+        │   └── components/      ← 项目自定义组件
+        ├── docs/                ← 参考文档
+        │   ├── pencil-playbook.md
+        │   └── design-constraints.md
+        ├── specs/               ← Sprint 原型
+        │   └── sprint-0/
+        │       └── 0.1-prototype.md
+        ├── .agents/skills/      ← 项目级 skill
+        │   └── impeccable/      ← Impeccable 设计 skill
+        └── src/                 ← 代码目录
 ```
 
 ## 社区方案对比（2026-04-18）
