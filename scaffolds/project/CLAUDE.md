@@ -7,11 +7,11 @@ type: feedback
 **初始化**：当用户说「hq-scrum 在 XXX 路径」或「初始化 hq-scrum」：
 
 1. 确认目标路径存在 `scaffolds/project/` 目录
-2. 检查当前项目已有文件，**已有文件不覆盖**：
-   - `PRD.md` 已存在 → 跳过复制，直接读取已有 PRD
-   - `ARCHITECTURE.md` 已存在 → 跳过复制
-   - `CLAUDE.md` 已存在 → 不覆盖（用户可能已自定义）
-   - `design/`、`docs/`、`.agents/`、`specs/`、`src/` 等目录已存在 → 只复制不存在的文件
+2. **逐文件检查，只复制不存在的文件，绝不覆盖任何已有文件**：
+   - 使用 `cp -n`（no-clobber）或逐个检查文件是否存在后再复制
+   - 禁止使用 `cp -r` 或 `cp -rf`（会无条件覆盖）
+   - `CLAUDE.md`、`PRD.md`、`ARCHITECTURE.md` 已存在 → 直接跳过
+   - 任何目录已存在 → 只复制该目录下不存在的文件
 3. 复制完成后，**从第一个未完成的 Phase 开始**：
    - PRD 已填写 → 跳过 Phase 0，直接从 Phase 1 开始
    - PRD 未填写 → 从 Phase 0 开始
