@@ -81,9 +81,21 @@ PRD 定义了"做什么"，但没有定义"怎么做感觉对"。在动手画原
 
 **如果 Impeccable 未安装**：跳过此步，但必须在步骤 5（`/critique`）之前安装，否则无法执行步骤 5。
 
+#### 2.5 验证组件库可用（强制 Gate，不可跳过）
+
+`scaffolds/project/design/shadcn.lib.pen` 已复制到项目，但 .pen 文件必须通过 Pencil 编辑器打开并保存后，MCP 才能正确读取其内容。**必须先验证再使用。**
+
+验证步骤：
+1. 在 Pencil 桌面应用中打开 `design/shadcn.lib.pen`，Cmd+S 保存
+2. 用 `batch_get` 搜索 `design/shadcn.lib.pen` 的 reusable 组件
+3. **如果返回非空** → 组件可用，继续下一步，用 `ref` 引用 shadcn 组件
+4. **如果返回空** → 组件库不可读，**暂停 Phase 1，报告给用户**，不要自行跳过或用原生组件替代
+
+> **为什么是 Gate**：组件优先是 hq-scrum 的核心约束。shadcn 不可用时继续做原型，等于违背了「组件优先」原则，原型质量和一致性都无法保证。
+
 #### 3. 生成 Pencil 原型
 
-基于 PRD 核心路径 + Design Brief（如果有），使用 Pencil MCP 生成每个关键页面的 .pen 原型。遵守 CLAUDE.md 中的设计约束（间距 S1.x、排版 H2.x、色彩 C4.x、克制 C0.x）。
+基于 PRD 核心路径 + Design Brief（如果有），使用 Pencil MCP 生成每个关键页面的 .pen 原型。遵守 CLAUDE.md 中的设计约束（间距 S1.x、排版 H2.x、色彩 C4.x、克制 C0.x）。**优先使用 `ref` 引用 shadcn 组件**（Button、Card、Input、Dialog 等），只在 shadcn 没有对应组件时才手动创建。
 
 #### 4. 原型走查
 

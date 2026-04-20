@@ -6,16 +6,17 @@ type: feedback
 
 **初始化**：当用户说「hq-scrum 在 XXX 路径」或「初始化 hq-scrum」：
 
-1. 确认目标路径存在 `scaffolds/project/` 目录
-2. **逐文件检查，只复制不存在的文件，绝不覆盖任何已有文件**：
+1. **先读规则**：读取本文件（CLAUDE.md）中的初始化规则和设计约束，不要凭记忆操作
+2. 确认目标路径存在 `scaffolds/project/` 目录
+3. **逐文件检查，只复制不存在的文件，绝不覆盖任何已有文件**：
    - 使用 `cp -n`（no-clobber）或逐个检查文件是否存在后再复制
    - 禁止使用 `cp -r` 或 `cp -rf`（会无条件覆盖）
    - `CLAUDE.md`、`PRD.md`、`ARCHITECTURE.md` 已存在 → 直接跳过
    - 任何目录已存在 → 只复制该目录下不存在的文件
-3. 复制完成后，**从第一个未完成的 Phase 开始**：
+4. 复制完成后，**从第一个未完成的 Phase 开始**：
    - PRD 已填写 → 跳过 Phase 0，直接从 Phase 1 开始
    - PRD 未填写 → 从 Phase 0 开始
-4. 向用户报告初始化结果（复制了哪些文件、跳过了哪些、当前从哪个 Phase 开始）
+5. 向用户报告初始化结果（复制了哪些文件、跳过了哪些、当前从哪个 Phase 开始）
 
 ---
 
@@ -34,8 +35,11 @@ type: feedback
 ### Phase 1 — Sprint 0 原型
 1. **执行 `/shape [产品名]`** — UX 访谈，产出 Design Brief
 2. 确认 Pencil MCP 可用（调用 `get_editor_state` 不报错）
-3. **先保存**：`/new` → Cmd+S 保存为 `specs/sprint-0/prototype.pen`
-4. 浏览 shadcn 组件库：`batch_get` 查看 `design/shadcn.lib.pen`
+3. **验证组件库可用（强制 Gate）**：
+   - 用 `batch_get` 搜索 `design/shadcn.lib.pen` 的 reusable 组件
+   - 如果返回空 → 组件库不可读，暂停并报告用户，不要自行跳过
+   - 如果返回非空 → 继续，记录可用组件 ID
+4. **先保存**：`/new` → Cmd+S 保存为 `specs/sprint-0/prototype.pen`
 5. 基于 PRD + Design Brief，用 `ref` 引用 shadcn 组件生成原型
 6. 原型完成后执行 `/critique [页面描述]` — UX 评审
 7. **等待用户确认原型走查通过**，确认后进入 Phase 2
@@ -202,7 +206,11 @@ type: feedback
 - 多屏原型 Frame 的 x 坐标必须错开：`x_N = (N-1) × (1480)`
 - **不要用** `replace_all_matching_properties`：破坏性操作，连锁污染
 - **不要**全删重建：用 `batch_get` 读状态 → `U()` 精确更新 → `I()` 增量添加
-- 每次 `batch_design` 后必须 Cmd+S 手动保存
+- 每次 `batch_design` 后必须**自动保存**，不要依赖手动 Cmd+S：
+  ```bash
+  echo "save(); exit()" | pencil interactive -i <文件路径> -o <文件路径>
+  ```
+  把 `<文件路径>` 替换为当前正在编辑的 `.pen` 文件。CLI 在 headless 模式下打开文件、写入磁盘、退出。
 
 ### 常用 shadcn 组件 ID
 
