@@ -27,6 +27,7 @@ project/
 │   └── sprint-N/
 ├── design/                ← 设计资产
 │   ├── tokens.css         ← 设计 Token（单一来源）
+│   ├── shadcn.lib.pen     ← shadcn/ui 完整组件库（可 ref 引用）
 │   └── components/        ← 可复用组件规范（含 .lib.pen 设计库）
 ├── src/                   ← 代码
 │   ├── components/
