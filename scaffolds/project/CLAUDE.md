@@ -37,12 +37,13 @@ type: feedback
 - 验证方法：在 Claude Code 中调用 Pencil MCP 工具，如 `get_editor_state`，不报错即为连通
 - **如果 Pencil 不可用**：用纸面回答 6 个 UX 发现问题（见 WORKFLOW.md Phase 1 步骤 1），然后继续 Phase 2。但 Sprint 0 必须在 Phase 4 实现前用 Pencil 补上
 
-### Impeccable Design Skill（推荐，非必须）
+### Impeccable Design Skill（必须）
 
 - 安装时机：Phase 0（PRD）确认之后、Phase 1 开始之前
 - 安装方式：`npx skills add pbakaus/impeccable`
 - 安装后运行 `/impeccable teach` 建立项目设计上下文
-- **如果不想装**：SOP 所有步骤均可执行，Impeccable 命令为可选增强
+- **Phase 1 必须使用**：`/shape`（UX 发现）→ `/impeccable teach`（设计上下文）→ 原型 → `/critique`（UX 评审）
+- **如果不装**：Phase 1 无法完整执行（步骤 1 和步骤 5 依赖 Impeccable），会阻塞流程
 
 ---
 
@@ -107,6 +108,15 @@ type: feedback
 ---
 
 ## Pencil 原型速查（Phase 1 Sprint 0）
+
+### 组件优先原则（必须遵守）
+
+**所有 Pencil 设计必须优先使用 `design/shadcn.lib.pen` 中的组件。**
+
+- 开始设计前，先用 `batch_get` 浏览 shadcn 组件库，找到匹配的组件
+- 用 `ref` 引用 shadcn 组件（Button、Card、Dialog、Sidebar、Input、Tabs、Alert、Badge 等），不要自己从零画
+- 只在 shadcn 没有对应组件时，才手动创建自定义组件
+- 用 `get_screenshot` 查看组件渲染效果，确保视觉一致
 
 ### 先保存再操作
 

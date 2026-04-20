@@ -19,7 +19,10 @@
 1. 把 `scaffolds/project/` 复制到新项目根目录
 2. 在 Claude Code 中打开新项目
 3. 对 Claude Code 说：「按 hq-scrum 流程，从 Sprint 0 开始」
-4. Claude Code 读取 `CLAUDE.md` 中的规则，按流程推进
+4. Claude Code 读取 `CLAUDE.md` 中的规则，按流程推进：
+   - 必须先安装 Impeccable（`npx skills add pbakaus/impeccable`），执行 `/shape` UX 访谈
+   - 使用 `design/shadcn.lib.pen` 中的 shadcn/ui 组件生成 Pencil 原型（不从零画）
+   - 原型完成后跑 `/critique` UX 评审，再进入架构阶段
 
 ## 目录结构
 
