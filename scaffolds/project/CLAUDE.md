@@ -5,8 +5,17 @@ type: feedback
 ---
 
 **初始化**：当用户说「hq-scrum 在 XXX 路径」或「初始化 hq-scrum」：
-1. 复制该路径下 `scaffolds/project/` 全部内容到当前项目根目录（`cp -r`）
-2. 复制完成后，从 Phase 0 开始
+
+1. 确认目标路径存在 `scaffolds/project/` 目录
+2. 检查当前项目已有文件，**已有文件不覆盖**：
+   - `PRD.md` 已存在 → 跳过复制，直接读取已有 PRD
+   - `ARCHITECTURE.md` 已存在 → 跳过复制
+   - `CLAUDE.md` 已存在 → 不覆盖（用户可能已自定义）
+   - `design/`、`docs/`、`.agents/`、`specs/`、`src/` 等目录已存在 → 只复制不存在的文件
+3. 复制完成后，**从第一个未完成的 Phase 开始**：
+   - PRD 已填写 → 跳过 Phase 0，直接从 Phase 1 开始
+   - PRD 未填写 → 从 Phase 0 开始
+4. 向用户报告初始化结果（复制了哪些文件、跳过了哪些、当前从哪个 Phase 开始）
 
 ---
 
@@ -15,10 +24,12 @@ type: feedback
 每个 Phase 的完成标准达到后，才能进入下一个。用户确认后推进。
 
 ### Phase 0 — 需求（填充 PRD.md）
-1. 读取用户描述的产品想法
-2. 按 PRD.md 模板提问补全：目标用户、核心路径（≤3 条）、非目标、约束
-3. 填写 PRD.md
-4. **等待用户确认 PRD 内容**，确认后进入 Phase 1
+- **如果 PRD.md 已存在且有内容** → 跳过，直接进入 Phase 1
+- 否则：
+  1. 读取用户描述的产品想法
+  2. 按 PRD.md 模板提问补全：目标用户、核心路径（≤3 条）、非目标、约束
+  3. 填写 PRD.md
+  4. **等待用户确认 PRD 内容**，确认后进入 Phase 1
 
 ### Phase 1 — Sprint 0 原型
 1. **执行 `/shape [产品名]`** — UX 访谈，产出 Design Brief
