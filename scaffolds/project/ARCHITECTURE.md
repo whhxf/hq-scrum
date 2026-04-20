@@ -23,8 +23,9 @@ project/
 ├── CLAUDE.md              ← 项目约定
 ├── PRD.md                 ← 需求
 ├── ARCHITECTURE.md        ← 本文件
-├── specs/                 ← Sprint Story 文件（.pen 原型也在此目录，与 Story 同名）
+├── specs/                 ← Sprint Story 文件
 │   └── sprint-N/
+│       └── prototype.pen  ← 当前 Sprint 原型（统一叫 prototype.pen）
 ├── design/                ← 设计资产
 │   ├── tokens.css         ← 设计 Token（单一来源）
 │   ├── shadcn.lib.pen     ← shadcn/ui 完整组件库（可 ref 引用）

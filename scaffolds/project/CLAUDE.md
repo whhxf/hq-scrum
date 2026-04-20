@@ -125,8 +125,7 @@ type: feedback
 `/new` 创建的临时文档每次重新序列化时会重新分配节点 ID。如果 `batch_design` 操作发生回滚，临时文档的 ID 会变化，之前记录的 ID 全部失效。**必须先 Cmd+S 保存为 `.pen` 文件，再开始 `batch_design`**。保存到磁盘后 ID 就固定了。
 
 **文件路径约定**：
-- Sprint 0 原型：`specs/sprint-0/prototype.pen`
-- 后续 Sprint 原型：`specs/sprint-N/M.N-name.pen`（与对应 Story 同名）
+- 所有 Sprint 原型：`specs/sprint-N/prototype.pen`（N 为 Sprint 编号，0、1、2...）
 - 设计库/组件库：`design/components/xxx.lib.pen`
 
 所有 `.pen` 文件保存在项目根目录下的对应路径，不要散落在任意位置。
