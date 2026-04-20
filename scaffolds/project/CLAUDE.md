@@ -8,7 +8,8 @@ type: feedback
 1. 从该路径复制 `scaffolds/project/` 中所有文件到当前项目根目录
 2. 同时复制 `extensions/shadcn.lib.pen` 到当前项目的 `design/shadcn.lib.pen`
 3. 同时复制 `docs/pencil-playbook.md` 和 `docs/design-constraints.md` 到当前项目的 `docs/` 目录下
-4. 从 Phase 0 开始
+4. 同时复制 `skills/impeccable/` 到当前项目的 `.agents/skills/impeccable/`
+5. 从 Phase 0 开始
 
 **知识来源**：本文件（CLAUDE.md）内联了设计约束和 Pencil 操作速查表，是日常工作的主要参考。`docs/pencil-playbook.md` 和 `docs/design-constraints.md` 是完整参考文档，需要深入查某个细节时翻阅。
 
@@ -39,11 +40,11 @@ type: feedback
 
 ### Impeccable Design Skill（必须）
 
-- 安装时机：Phase 0（PRD）确认之后、Phase 1 开始之前
-- 安装方式：`npx skills add pbakaus/impeccable`
-- 安装后运行 `/impeccable teach` 建立项目设计上下文
-- **Phase 1 必须使用**：`/shape`（UX 发现）→ `/impeccable teach`（设计上下文）→ 原型 → `/critique`（UX 评审）
-- **如果不装**：Phase 1 无法完整执行（步骤 1 和步骤 5 依赖 Impeccable），会阻塞流程
+- 初始化时已通过 `skills/impeccable/` 复制到项目的 `.agents/skills/impeccable/`
+- **Phase 1 必须使用**：`/shape`（UX 发现）→ `/critique`（UX 评审）
+- **Phase 4 可用**：`/polish`（对齐/间距）`/typeset`（排版）`/colorize`（色彩）`/layout`（布局）
+- **Phase 5 可用**：`/audit`（技术检查）
+- 所有命令每次只调一个维度，审 diff 后再决定下一步
 
 ---
 
