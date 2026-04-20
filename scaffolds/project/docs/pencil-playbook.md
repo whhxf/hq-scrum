@@ -1,6 +1,14 @@
-# Pencil MCP 操作手册
+# Pencil 操作手册
 
 > 基于官方文档 + 实测验证。所有操作已逐项测试，确认行为与预期一致。
+
+## 工具定位
+
+**设计在 GUI，MCP 做微调。**
+
+- Phase 1（原型设计）：Pencil GUI 内置 AI agent 对话式设计，实时画布查看效果
+- Phase 4（代码翻译）：MCP 读取 `.pen` 结构，用 `batch_get` + `get_screenshot` 获取原型信息
+- MCP 细调：间距修正、颜色更新、对齐调整等精确操作
 
 ---
 
@@ -1197,11 +1205,11 @@ Pencil 和 Impeccable 在 hq-scrum SOP 中扮演不同阶段的角色：
 
 | 阶段 | 工具 | 输入 | 输出 |
 |------|------|------|------|
-| Phase 1 Sprint 0 原型 | Pencil MCP | PRD 文字/ASCII + design-constraints.md | `.pen` 文件 + 真实 UI 截图 |
+| Phase 1 Sprint 0 原型 | Pencil GUI + MCP | PRD + DESIGN_BRIEF + 竞品参考 | `.pen` 文件 + 真实 UI 截图 |
 | Phase 4 实现后抛光 | Impeccable | 已有 HTML/组件代码 + `.impeccable.md` | 代码 diff（针对性修改） |
 | Phase 5 验证评审 | Impeccable | 已有页面 | `/critique` 评分报告 + `/audit` 技术检查 |
 
-**Pencil** 是"从无到有"——把 PRD 需求翻译为视觉原型，约束规则确保美感底线。
+**Pencil** 是"从无到有"——把 PRD + Brief 翻译为视觉原型，在真实画布上验证体验。
 **Impeccable** 是"从有到精"——对已实现的代码做精细化设计调整，18 个命令精确控制每个维度。
 
 两者配合：Pencil 定方向（原型验证），Impeccable 做收尾（代码抛光）。

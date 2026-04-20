@@ -29,16 +29,10 @@ _Depends_: [依赖的 Story 编号，无则写 None]
 
 ### 布局
 
-<!-- ASCII 原型或设计稿引用。说明关键区域的位置关系 -->
+<!-- 引用 prototype.pen 中的页面和组件路径。说明关键区域的位置关系 -->
 
-```
-┌─────────────────────────┐
-│  header                 │
-├──────────┬──────────────┤
-│  left    │  right       │
-│  panel   │  panel       │
-└──────────┴──────────────┘
-```
+原型文件：`specs/sprint-N/prototype.pen`
+对应 Frame：[Frame 名称或 ID]
 
 ### 组件清单
 
@@ -106,6 +100,8 @@ _Depends_: [依赖的 Story 编号，无则写 None]
 - PRD: `PRD.md`
 - Architecture: `ARCHITECTURE.md`
 - Design Tokens: `design/tokens.css`
+- Prototype: `specs/sprint-N/prototype.pen`
+- Design Brief: `DESIGN_BRIEF.md`
 
 ---
 
