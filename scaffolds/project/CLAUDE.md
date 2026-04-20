@@ -120,7 +120,9 @@ type: feedback
 
 ### 先保存再操作
 
-`/new` 创建的临时文档每次重新序列化时会重新分配节点 ID，导致之前记录的 ID 全部失效。**必须先 Cmd+S 保存为 `.pen` 文件，再开始 `batch_design`**。
+**第一步永远是保存，不保存不做任何操作。**
+
+`/new` 创建的临时文档每次重新序列化时会重新分配节点 ID。如果 `batch_design` 操作发生回滚，临时文档的 ID 会变化，之前记录的 ID 全部失效。**必须先 Cmd+S 保存为 `.pen` 文件，再开始 `batch_design`**。保存到磁盘后 ID 就固定了。
 
 **文件路径约定**：
 - Sprint 0 原型：`specs/sprint-0/prototype.pen`
@@ -141,6 +143,7 @@ type: feedback
 
 ### 关键规则
 
+- **先保存再操作**：`/new` 临时文档不保证 ID 稳定性，Cmd+S 保存为 `.pen` 后才能开始 `batch_design`
 - **新建 Frame 必须错开 x 坐标**：每个新 frame 的 `x` 必须等于前一个 frame 的 `x + 宽度 + 40px`。不设置 = 所有 frame 叠加在 `(0,0)` 互相遮挡看不到。公式：`x_N = (N-1) × (1440 + 40)`
 - 节点 ID 以数字开头必须加引号：`I("1GmYb", {...})`
 - flexbox 布局下子节点 x/y 无效，靠 gap/padding 控制间距
