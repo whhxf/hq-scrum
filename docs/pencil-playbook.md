@@ -445,6 +445,287 @@ item=I(sidebar, {type: "ref", ref: "1:jBcUh", descendants: {"iconId": {iconFontN
 
 ---
 
+## 图形系统（Graphics）
+
+官方文档完整定义了对象的视觉表现，包括 fill/stroke/effects。以下是 playbook 此前未覆盖的部分。
+
+### 多 Fill 叠加
+
+一个对象可以有多个 fill，按数组顺序从下到上层叠：
+
+```javascript
+U("nodeId", {
+  fill: [
+    { type: "color", color: "#5c00cb", blendMode: "normal" },
+    { type: "gradient", gradientType: "linear", opacity: 0.3, rotation: 45,
+      colors: [{ color: "#ffffff", position: 0 }, { color: "transparent", position: 1 }] }
+  ]
+})
+```
+
+### 渐变（Gradient）
+
+```javascript
+// 线性渐变
+{
+  type: "gradient",
+  gradientType: "linear",
+  rotation: 135,           // 逆时针角度，0° 向上
+  center: { x: 0.5, y: 0.5 },  // 归一化到边界框
+  size: { width: 1, height: 1 },
+  colors: [
+    { color: "#5c00cb", position: 0 },
+    { color: "#3d0088", position: 1 }
+  ]
+}
+
+// 径向渐变
+{ type: "gradient", gradientType: "radial", ... }
+
+// 角度渐变
+{ type: "gradient", gradientType: "angular", ... }
+```
+
+### Image Fill
+
+```javascript
+{
+  type: "image",
+  url: "../../assets/hero.png",  // 相对于 .pen 文件的路径
+  mode: "fit"  // "stretch" | "fill" | "fit"
+}
+```
+
+### Stroke 完整属性
+
+```javascript
+{
+  stroke: {
+    align: "inside",        // "inside" | "center" | "outside"
+    thickness: 1,           // 或 { top: 1, right: 2, bottom: 1, left: 2 }
+    join: "round",          // "miter" | "bevel" | "round"
+    miterAngle: 4,
+    cap: "round",           // "none" | "round" | "square"
+    dashPattern: [4, 4],    // 虚线
+    fill: "#e5e5e5"
+  }
+}
+```
+
+### Effects（效果）
+
+```javascript
+// 毛玻璃模糊
+{ effect: { type: "background_blur", radius: 8 } }
+
+// 层模糊
+{ effect: { type: "blur", radius: 4 } }
+
+// 阴影（最常用）
+{
+  effect: {
+    type: "shadow",
+    shadowType: "outer",
+    offset: { x: 0, y: 2 },
+    spread: 0,
+    blur: 8,
+    color: "#00000033",  // 8 位 HEX = RGBA
+    blendMode: "normal"
+  }
+}
+
+// 内阴影
+{ effect: [{ type: "shadow", shadowType: "inner", ... }, { type: "shadow", shadowType: "outer", ... }] }
+```
+
+多个 effect 按数组顺序应用。
+
+### Blend Modes
+
+20 种混合模式：`normal`, `darken`, `multiply`, `linearBurn`, `colorBurn`, `light`, `screen`, `linearDodge`, `colorDodge`, `overlay`, `softLight`, `hardLight`, `difference`, `exclusion`, `hue`, `saturation`, `color`, `luminosity`。日常原型几乎用不到，做特殊视觉效果时查阅。
+
+---
+
+## 文字进阶（Text）
+
+### textGrowth（文字容器增长模式）
+
+控制文字如何换行和容器如何增长。**不设 textGrowth 时 width/height 会被忽略**：
+
+| 模式 | 行为 | 场景 |
+|------|------|------|
+| `auto` | 文字不换行，容器自动扩大 | 单行标题、按钮文字 |
+| `fixed-width` | 固定宽度，文字自动换行，高度自动增长 | 正文、描述文字 |
+| `fixed-width-height` | 宽高都固定，文字换行，超出可能溢出 | 卡片描述限制行数 |
+
+```javascript
+// 单行标题
+{ type: "text", content: "标题", textGrowth: "auto", fontSize: 24, fontWeight: "700" }
+
+// 自动换行的正文
+{ type: "text", content: "这是一段很长的描述文字...", textGrowth: "fixed-width", width: 300, fontSize: 14 }
+
+// 固定区域的描述
+{ type: "text", content: "...", textGrowth: "fixed-width-height", width: 300, height: 60, fontSize: 14 }
+```
+
+### 其他文字属性
+
+```javascript
+{
+  lineHeight: 1.5,        // 行高倍数，不设则用字体内置行高
+  letterSpacing: 0.5,     // 字间距
+  textAlign: "center",    // "left" | "center" | "right" | "justify"
+  textAlignVertical: "middle",  // "top" | "middle" | "bottom"
+  underline: true,
+  strikethrough: true,
+  fontStyle: "italic"
+}
+```
+
+Rich text 支持 `content` 为 `TextStyle[]` 数组，同一段文字不同样式：
+
+```javascript
+{
+  type: "text",
+  content: [
+    { content: "粗体", fontWeight: "700" },
+    { content: "普通文字", fontWeight: "400" }
+  ]
+}
+```
+
+---
+
+## 主题系统（Theme）进阶
+
+### 解析规则
+
+- 变量有多个主题值时，**最后一个满足当前主题配置的胜出**
+- 每个主题轴的**第一个值是默认值**（如 `themes: { mode: ["light", "dark"] }` 默认 light）
+
+```javascript
+{
+  "variables": {
+    "bg": {
+      "type": "color",
+      "value": [
+        { "value": "#FFFFFF", "theme": { "mode": "light" } },
+        { "value": "#1a1a1a", "theme": { "mode": "dark" } }
+      ]
+    }
+  },
+  "themes": {
+    "mode": ["light", "dark"]   // light 是默认值
+  }
+}
+```
+
+### 实体级主题覆盖
+
+任意 Entity 可设 `theme` 属性，其下所有子节点继承该主题：
+
+```javascript
+// 整个页面是 light，但某一块用 dark 主题
+{
+  type: "frame",
+  theme: { "mode": "dark" },  // 此 frame 下的所有节点使用 dark 主题
+  fill: "$bg"                // 解析为 #1a1a1a
+}
+```
+
+多轴主题：
+
+```javascript
+{ theme: { "mode": "dark", "spacing": "condensed" } }
+```
+
+shadcn 组件通过 `theme` 配置控制品牌色：
+
+```javascript
+U("nodeId", { theme: { "1:Accent": "Violet", "1:Base": "Neutral", "1:Mode": "Light" } })
+```
+
+---
+
+## Entity 通用属性
+
+所有 Entity（frame/rectangle/text 等）共享以下属性，此前 playbook 未完整列出：
+
+| 属性 | 类型 | 默认 | 说明 |
+|------|------|------|------|
+| `id` | string | 自动生成 | 文档内唯一，不可含 `/` |
+| `name` | string | — | 显示名称，用于标识 |
+| `reusable` | boolean | false | 标记为可复用组件 |
+| `enabled` | bool/var | true | 是否启用 |
+| `opacity` | num/var | 1 | 透明度 |
+| `rotation` | num/var | 0 | 旋转角度（逆时针） |
+| `flipX` | bool/var | false | 水平翻转 |
+| `flipY` | bool/var | false | 垂直翻转 |
+| `theme` | object | — | 主题配置 |
+| `context` | string | — | 实体上下文 |
+| `metadata` | object | — | 元数据 |
+| `layoutPosition` | string | "auto" | `"auto"`（参与 flex 布局）或 `"absolute"`（绝对定位） |
+| `clip` | bool/var | false | frame 裁剪溢出内容 |
+
+### layoutPosition
+
+```javascript
+// 在 flex 容器中，某个子节点不参与布局，手动定位
+{
+  type: "frame",
+  layout: "vertical",
+  children: [
+    { type: "text", content: "正常流" },
+    { type: "text", content: "浮动覆盖", layoutPosition: "absolute", x: 100, y: 50 }
+  ]
+}
+```
+
+### clip
+
+```javascript
+// 溢出 frame 的内容被裁剪
+{ type: "frame", width: 200, height: 100, clip: true, children: [...] }
+```
+
+---
+
+## 其他节点类型
+
+Playbook 主要使用 frame/rectangle/text/ref/icon_font，以下是其他类型的简要说明：
+
+| 类型 | 用途 | 关键属性 |
+|------|------|---------|
+| `ellipse` | 椭圆/圆/环 | `innerRadius`（0=实心, 1=环）、`startAngle`、`sweepAngle` |
+| `line` | 线条 | width/height 决定线长和方向 |
+| `path` | SVG 路径 | `geometry`（SVG path 字符串）、`fillRule`（nonzero/evenodd） |
+| `polygon` | 正多边形 | `polygonCount`（1=三角形, 2=方形...）、`cornerRadius` |
+| `group` | 无背景的容器 | 类似 frame 但无 fill/border，只做分组 |
+| `note` | 设计备注 | `content`，不参与渲染，仅设计阶段 |
+
+Group vs Frame：Group 没有视觉表现（无 fill/stroke/cornerRadius），仅用于逻辑分组。Frame 是矩形且可有子节点。
+
+---
+
+## 外部引用（Document.imports）
+
+```json
+{
+  "imports": {
+    "shadcn": "../design/shadcn.lib.pen"
+  }
+}
+```
+
+- key 是短别名（如 `shadcn`），value 是相对路径
+- 导入的 .pen 文件中所有 reusable 组件和 variables 在当前文件可用
+- 实例化时用 `ref: "shadcn/1:VSnC2"` 或直接用 ID `"1:VSnC2"`（ID 文档内唯一即可）
+
+Pencil 桌面通过 `pencil:shadcn.lib.pen` 协议引入，MCP 中会自动处理。手写 .pen 文件时用相对路径。
+
+---
+
 ## 常用 shadcn 组件 ID
 
 | 组件 | ID | 说明 |
