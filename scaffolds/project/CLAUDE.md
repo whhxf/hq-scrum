@@ -141,6 +141,7 @@ type: feedback
 
 ### 关键规则
 
+- **新建 Frame 必须错开 x 坐标**：每个新 frame 的 `x` 必须等于前一个 frame 的 `x + 宽度 + 40px`。不设置 = 所有 frame 叠加在 `(0,0)` 互相遮挡看不到。公式：`x_N = (N-1) × (1440 + 40)`
 - 节点 ID 以数字开头必须加引号：`I("1GmYb", {...})`
 - flexbox 布局下子节点 x/y 无效，靠 gap/padding 控制间距
 - 按钮文字居中必须用 flexbox：`layout: "horizontal"` + `justifyContent: "center"`
