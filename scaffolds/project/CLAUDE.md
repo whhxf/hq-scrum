@@ -8,6 +8,50 @@ type: feedback
 1. 复制该路径下 `scaffolds/project/` 全部内容到当前项目根目录（`cp -r`）
 2. 复制完成后，从 Phase 0 开始
 
+---
+
+## Phase 执行引擎
+
+每个 Phase 的完成标准达到后，才能进入下一个。用户确认后推进。
+
+### Phase 0 — 需求（填充 PRD.md）
+1. 读取用户描述的产品想法
+2. 按 PRD.md 模板提问补全：目标用户、核心路径（≤3 条）、非目标、约束
+3. 填写 PRD.md
+4. **等待用户确认 PRD 内容**，确认后进入 Phase 1
+
+### Phase 1 — Sprint 0 原型
+1. **执行 `/shape [产品名]`** — UX 访谈，产出 Design Brief
+2. 确认 Pencil MCP 可用（调用 `get_editor_state` 不报错）
+3. **先保存**：`/new` → Cmd+S 保存为 `specs/sprint-0/prototype.pen`
+4. 浏览 shadcn 组件库：`batch_get` 查看 `design/shadcn.lib.pen`
+5. 基于 PRD + Design Brief，用 `ref` 引用 shadcn 组件生成原型
+6. 原型完成后执行 `/critique [页面描述]` — UX 评审
+7. **等待用户确认原型走查通过**，确认后进入 Phase 2
+
+### Phase 2 — 架构（填写 ARCHITECTURE.md）
+1. 基于 PRD 填写技术栈表格（每项必须写为什么选）
+2. 确认目录结构、状态管理方案、样式方案、测试策略
+3. **等待用户确认架构**，确认后进入 Phase 3
+
+### Phase 3 — Story Specs
+1. 将核心路径拆分为 Sprint Story
+2. 每个 Story 包含 Design Spec（状态矩阵：Loading/Empty/Error/Success/Permission）
+3. **Planning Audit Gate：等待人审合同边界**，通过后进入 Phase 4
+
+### Phase 4 — 实现
+1. 逐个 Story 实现
+2. 可用 Impeccable 抛光：`/polish` `/typeset` `/colorize` `/layout`
+3. 每个 Story 完成标准：逻辑测试通过 + 人眼视觉确认
+4. Sprint 结束后进入 Phase 5
+
+### Phase 5 — Show & Tell
+1. 执行 `/audit` 技术检查
+2. 真实用户验证核心任务，不是自嗨演示
+3. 回退是流程的一部分，发现方向错直接回退
+
+---
+
 **知识来源**：本文件（CLAUDE.md）内联了设计约束和 Pencil 操作速查表，是日常工作的主要参考。`docs/pencil-playbook.md` 和 `docs/design-constraints.md` 是完整参考文档，需要深入查某个细节时翻阅。
 
 **设计组件库**：`design/shadcn.lib.pen` 是 shadcn/ui 的完整组件库（.pen 格式）。在 Pencil 中通过 import 引入后，可用 `ref` 引用所有组件（Button、Card、Dialog、Sidebar 等）。AI 可通过 `batch_get` 浏览组件结构，`get_screenshot` 查看真实渲染效果。
@@ -37,11 +81,10 @@ type: feedback
 
 ### Impeccable Design Skill（必须）
 
-- 初始化时已通过 `skills/impeccable/` 复制到项目的 `.agents/skills/impeccable/`
-- **Phase 1 必须使用**：`/shape`（UX 发现）→ `/critique`（UX 评审）
-- **Phase 4 可用**：`/polish`（对齐/间距）`/typeset`（排版）`/colorize`（色彩）`/layout`（布局）
-- **Phase 5 可用**：`/audit`（技术检查）
-- 所有命令每次只调一个维度，审 diff 后再决定下一步
+- 初始化时已内置于 `.agents/skills/impeccable/`
+- Phase 1 第一步自动执行 `/shape`，原型完成后自动执行 `/critique`
+- Phase 4/5 按需使用 `/polish` `/typeset` `/colorize` `/layout` `/audit`
+- 每次只调一个维度，审 diff 后再决定下一步
 
 ---
 
@@ -194,29 +237,6 @@ descendants: {"iconNodeId": {iconFontName: "search"}}
 图标名用 kebab-case（`trash-2` 不是 `trash2`），必须有 width/height。完整图标列表见 [lucide.dev/icons](https://lucide.dev/icons)。
 
 其他支持的图标库：Feather、Material Symbols (Outlined/Rounded/Sharp)、Phosphor。
-
----
-
-## 设计技能增强（Impeccable，推荐）
-
-项目初始化时安装 Impeccable Design Skill：
-
-```bash
-npx skills add pbakaus/impeccable
-```
-
-安装后在各阶段按需使用：
-
-| 阶段 | 命令 | 作用 |
-|------|------|------|
-| Phase 1 起点 | `/impeccable teach` | 建立项目设计上下文（品牌、受众、视觉参考），生成 `.impeccable.md` |
-| Phase 1 原型前 | `/shape [功能描述]` | 结构化 UX 访谈，产出 Design Brief，指导原型方向 |
-| Phase 1 原型后 | `/critique [页面描述]` | UX 评审：AI Slop 检测、Nielsen 启发式评分、认知负荷检查 |
-| Phase 4 实现后 | `/polish [页面描述]` | 对齐、间距、排版、色彩综合优化 |
-| Phase 4 实现后 | `/typeset [页面描述]` | 字体层级、字重、字距、可读性 |
-| Phase 4 实现后 | `/colorize [页面描述]` | 为灰度过度的界面增加战略色彩 |
-
-Impeccable 是针对性修改，不是重写。每次只调一个维度，审 diff 后再决定下一步。
 
 ---
 
